@@ -1,0 +1,23 @@
+{
+  "name": "nativescript-quick-start",
+  "version": "1.0.0",
+  "description": "A quick-start guide for NativeScript CLI apps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjvantoll/quick-start-template.git"
+  },
+  "author": "TJ VanToll",
+  "bugs": {
+    "url": "https://github.com/tjvantoll/quick-start-template/issues"
+  },
+  "homepage": "https://github.com/tjvantoll/quick-start-template",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.1",
+    "gulp-file-include": "^0.8.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-watch": "^4.1.1",
+    "gulp-webserver": "^0.9.0",
+    "marked": "^0.3.3"
+  }
+}
