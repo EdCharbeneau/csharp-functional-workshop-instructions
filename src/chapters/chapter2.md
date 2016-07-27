@@ -1,83 +1,226 @@
-## Input Controls
+## Creating a unit test
 
-In this chapter you'll learn how to add Kendo UI widgets to your application. UI for MVC has powerful HTML Helpers that configure and render Kendo UI widgets.
+In this chapter you'll learn how to create simple unit tests with xUnit.
 
-### Kendo UI Helper Overview
+### Create a Card test
 
-**Server-side wrappers**
-
-Telerik UI for ASP.NET MVC is a set of server-side wrappers. A server-wrapper does the following.
-
-- Allows the developer to configure a Kendo UI widget via C# or VB.NET code - set its value, data source etc.
-- Renders the HTML and JavaScript needed to initialize the Kendo UI widget. The widget options propagate to the client side via the widget initialization script.
-
-![Server-side wrapper outputs HTML and JavaScript](images/chapter2/wrapper-output.png)
-
-**Configuration**
-
-The Kendo UI HtmlHelper exposes all Kendo UI server wrappers.
-
-![Kendo HtmlHelper extension method](images/chapter2/kendo-extension.png)
-
-**Widget options**
-
-The widget options are exposed via fluent interface.
-
-![Fluent interface](images/chapter2/fluent-interface.png)
-
-Below is an example of how a Numeric Text Box input is created:
-
-    @(Html.Kendo().NumericTextBox()
-        .Name("name") // set the name of the NumericTextBox
-        .Value(10) //set the value
-        .Spinners(false) // disable the spinners
-    )
-
-### Adding a Kendo UI DatePicker
-
-Let's open the `Index.cshtml` page under the folder `views/home/`. The `Index.cshtml` page is where most of the application's UI lives. This page currently contains basic HTML inputs to collect date input from the user. To provide a better user experience, replace the standard HTML inputs with Kendo UI date picker controls. The Kendo UI date picker controls offer users a fly out calendar to choose a desired date.
-
-> Note: The Kendo UI DatePicker control is touch and mouse friendly. No additional code is necessary to support tablets and phones.
+Throughout this workshop you'll be using poker cards to learn new functional language features. In this exercise you'll create a new folder to hold unit tests and write your first unit test for a poker card. To keep things simple, in this workshop you'll use one project for all of your code. In a real-world app you would probably use a separate test project.
 
 <h4 class="exercise-start">
-    <b>Exercise</b>: Replace StatsFrom and StatsTo TextBoxes with Kendo UI date pickers
+    <b>Exercise</b>: Create a Card test
 </h4>
 
-**Open** `Views/Home/Index.cshtml` and find the `StatsFrom` text box helper
+Add a folder named Tests to your project.
 
-    <!-- Stats From Date Picker -->
-	@Html.TextBox("StatsFrom", new DateTime(1996, 1, 1))
+In /Tests Add an empty class file named CardTests.cs
 
-**Replace** the text box helper with a Kendo UI date picker. Set the **Name** property to `StatsFrom` and the **Value** with a new `DateTime` of `1996,1,1`.
+Make sure the CardTests class is defined as **public** so the test runner can see the test class.
 
-	<!-- Stats From Date Picker -->
-	@(Html.Kendo().DatePicker()
-           .Name("StatsFrom")
-           .Value(new DateTime(1996, 1, 1))
-    )        
+    public class CardTests
 
-Find the `StatsTo` text box helper
+In CardTests.cs add a new test method named CanCreateCard. Test methods in xUnit use the `[Fact]` attribute. You may need to import xUnit with a `using ` statement, highlight Fact and press ctrl+. (control period), the press enter.
 
-	<!-- Stats To Date Picker -->
-	@Html.TextBox("StatsTo", new DateTime(1996, 1, 1))    
+	[Fact]
+	public void CanCreateCard() { }
 
-**Replace** the text box helper with a Kendo UI DatePicker. Set the **Name** property to `StatsTo` and the **Value** with a new `DateTime` of `1998,8,1`.
+In the CanCreateCard method write a test that confirms that a new Card object can be created.
 
-	<!-- Stats To Date Picker -->
-	@(Html.Kendo().DatePicker()
-    		.Name("StatsTo")
-			.Value(new DateTime(1998, 8, 1))
-	)
+    var card = new Card();
+    Assert.NotNull(card);
 
-The Kendo UI HTML helper's fluent interface let you configure a widget's behavior and appearance. The code you just added uses the following properties:
-
-- Name: Sets the rendered HTML element's id property.
-- Value: Sets a default selected date value for the date picker
+There is no class defined yet, so you can consider this the first failing test. In the next exercise you'll create a Card object to satisfy this test.
 
 <div class="exercise-end"></div>
 
-After you run your app with this change, you will see a calendar icon in the **Stats from** field. Click or tap the icon to reveal the date picker:
+### Create a Card object
 
-![Tap to show a date picker](images/chapter2/date-picker-flyout.jpg)
+In this exercise you'll create a card object.
 
-With the inputs upgraded let's move on to the extremely robust Kendo UI Grid.
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Card object
+</h4>
+
+In the root folder of your project, create a Card class named Card.cs.
+
+Make the card class public.
+
+    public class Card {}
+
+This should be enough to satisfy the first unit test. Build the project (ctrl+shift+b), open Test  Explorer and click **Run All**. You should receive a green check-mark next to the CanCreateCard test.
+
+If the Test Explorer window is not visible, type Test Explorer in the quick launch box.
+
+<div class="exercise-end"></div>
+
+### Complete the Card object
+
+A card must be able to represent a Suit and Value to be useful. In the next exercise you'll add some properties to the card and tests to insure a card has a Suit and Value when it is created.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: description
+</h4>
+
+Give the card properties to hold a CardValue and CardSuit
+
+	public class Card
+    {
+        public CardValue Value { get; set; }
+        public CardSuit Suit { get; set; }
+    }
+
+Create enums for CardValue and CardSuit
+
+        // CardValue.cs
+		public enum CardValue
+	    {
+	        Two = 2,
+	        Three,
+	        Four,
+	        Five,
+	        Six,
+	        Seven,
+	        Eight,
+	        Nine,
+	        Ten,
+	        Jack,
+	        Queen,
+	        King,
+	        Ace
+	    }
+
+        // CardSuit.cs
+    	public enum CardSuit
+	    {
+	        Spades,
+	        Diamonds,
+	        Clubs,
+	        Hearts
+	    }
+
+Change the CanCreateCard test so that a Card has a value when it is created, rename the test to CanCreateCardWithValue. Test to make sure the properties are NotNull.
+
+        [Fact]
+        public void CanCreateCardWithValue() {
+
+            var card = new Card();
+
+            Assert.NotNull(card.Suit);
+            Assert.NotNull(card.Value);
+        }
+
+Note that the test will pass even when no value was assigned. This is because enums have a default value.
+
+To insure that a value is intentionally set, add a constructor to the Card that requires a Suit and Value.
+
+    public class Card
+    {
+        public Card(CardValue value, CardSuit suit)
+        {
+            Value = value;
+            Suit = suit;
+        }
+
+        public CardValue Value { get; }
+        public CardSuit Suit { get; }
+
+    }
+
+Change the assertion so that it checks for a predetermined Suit and Value.
+
+	var card = new Card(CardSuit.Clubs, CardValue.Ace);
+ 
+	Assert.Equal(CardSuit.Clubs, card.Suit);
+    Assert.Equal(CardValue.Ace, card.Value);
+
+Now when a Card is created it must have its properties set to a value. In the next exercise you'll refactor the Card so that it is immutable, meaning that its properties cannot be changed once the object is created.
+
+Re-run the test to verify that the test passes.
+
+<div class="exercise-end"></div>
+
+### Describing a Card
+
+One positive aspect of C# programming is that both functional and OOP styles of programming are not mutually exclusive. In this exercise you'll override the inherited ToString method of the Card object and use it to describe the Card's values.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Override the inherited ToString method
+</h4>
+
+Create a new test CanDescribeCard, this test should test a Card with the values of `CardValue.Ace` and `CardSuit.Spades`. The ToString method should return `"Ace of Spades"`.
+
+	[Fact]
+    public void CanDescribeCard()
+    {
+  		var card = new Card(CardValue.Ace, CardSuit.Spades);
+		  
+		  Assert.Equal("Ace of Spades", card.ToString());
+
+    }
+
+Run the test to verify that it fails.
+
+Next, update the Card object to make the test pass. Overried the ToString method on the Card class and utilize the string interpolation syntax to write out the Card's description.
+
+        public override string ToString()
+        {
+            return $"{Value} of {Suit}";
+        }
+
+Re-run the test to verify that the test passes.
+
+<div class="exercise-end"></div>
+
+### Describing a Card, refactor
+
+The ToString method is a simple, single line of code that returns a value. In this exercise you'll use an expression-bodied member to reduce the amount of code further into a concise expression.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Convert ToString to an expression-bodied member
+</h4>
+
+Find the ToString method of the Card class. Remove the braces {} from the method, and replace the `return` statement with a lambda arrow =>. The arrow implies that the method will return a value, and the result is a much simpler syntax. 
+
+This will reduce the method to a simple one line statement. 
+
+        public override string ToString() => $"{Value} of {Suit}";
+
+Re-run the test to verify that the test passes.
+
+<div class="exercise-end"></div>
+
+
+### Immutable Card object
+
+In functional programming immutable objects are used to reduce complexity and avoid unintended changes in state. An immutable object's state cannot be modified after it is created, lowering the risk of side-effects.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Modify the Card to make it immutable
+</h4>
+
+In C# 6 or higher, backing fields and explicit readonly property declarations are not needed. By simply removing the `set` operator from a property will make it a read-only property.
+
+In the Card class, remove the `get` decliartions from each property.
+
+    public class Card
+    {
+        public Card(CardValue value, CardSuit suit)
+        {
+            Value = value;
+            Suit = suit;
+        }
+
+        public CardValue Value { get; }
+        public CardSuit Suit { get; }
+
+        public override string ToString() => $"{Value} of {Suit}";
+    }
+
+Now the properties can only be set during the object's initialization.
+
+Re-run the test to verify that the test passes.
+
+<div class="exercise-end"></div>
+
+In this chapter you created a simple object and used some functional aspects of C#. By using expression bodied-members, the ToString method was reduced to a single expression. The Card class was made immutable by using the objects constructor and removing the `set` declarations from the object. In the Card object, both OOP and functional programming were used in a single class.
+
+This chapter also outlined the basics of writing and running unit tests. Now that you're comfortable with running unit tests, you will not be instructed to run tests after this point, instead feel free to run them as needed throughout the remainder of the next chapters.

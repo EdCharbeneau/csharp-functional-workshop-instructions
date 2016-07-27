@@ -1,115 +1,222 @@
-## Scaffolding
+## A poker hand
 
-In this chapter, you'll learn how to add leverage Telerik UI for MVC's scaffolding capabilities. One feature that MVC developers are quite used to is scaffolding. Visual-Studio-powered MVC scaffolding is a code generation framework that allows you to hook up your model to a controller and render views that are strongly typed, among other things. Since the scaffolding is simply a code generation tool, you are free to change any of the code that it generated.
+In the previous chapter you created a simple object and used some functional aspects of C#.
 
-### Upgrade the Database
+In this chapter you'll start with imperative and OOP style programming. Throughout the examples you'll be asked to refactor using functional programming. This will help identify where to find balance between the two styles. As the this guide progresses, instructions will become less detailed so that you can explore your on your own.
 
-A copy of the Northwind database is included with the Kendo UI Quick Start Boilerplate. Before you begin scaffolding make sure the Northwind database is upgraded.  Having a working connection to the database is needed for the scaffolding wizard to work properly.
+Now that you're comfortable with running unit tests, you will not be instructed to run tests after this point, instead feel free to run them as needed. **For example, after every code change.**
 
-> Note: Upgrading the database is only necessary for this guide because the database supplied must support multiple versions of SQL therefore we chose the lowest database version possible.
+### Crate a Hand
+
+The poker hand will be used throughout the workshop. The Hand will represent a player's hand of cards. For this workshop a five card hand will be scored using imperative and functional programming.
 
 <h4 class="exercise-start">
-    <b>Exercise</b>: Upgrade the Northwind Database
+    <b>Exercise</b>: Create the HandTests
 </h4>
 
-> Note: If you do not have an SQL Server instance installed on your machine, you may need to install SQL Server Express Edition from Microsoft. You can download the free installer [here](http://www.microsoft.com/en-us/server-cloud/products/sql-server-editions/sql-server-express.aspx).
+Create a test class named HandTests in the /Tests folder. Make sure HandTests is public.
 
-Using Visual Studio's **Server Explorer**, expand **DataConnections** and **right-click NorthwindDB > Modify Connection**.
+Use the following tests to create a Hand class that has a Cards property and a Draw method.
 
-![](images/chapter3/upgrade-db-1.jpg)
+        [Fact]
+        public void CanCreateHand()
+        {
+            var hand = new Hand();
+            Assert.Equal(hand.Cards.Any(), false);
+        }
 
-Next, **click OK**.
+        [Fact]
+        public void CanHandDrawCard()
+        {
+            var card = new Card(CardValue.Ace, CardSuit.Spades);
+            var hand = new Hand();
 
-![](images/chapter3/upgrade-db-2.jpg)
+            hand.Draw(card);
 
-Finally, **click Yes** to complete the upgrade.
+            Assert.Equal(hand.Cards.First(), card);
+        }
 
-![](images/chapter3/upgrade-db-3.jpg)
+Create a Hand class that satisfies the tests.
 
-Once the upgrade is complete, **expand** the Northwind Database Tables to verify connectivity.
+    public class Hand
+    {
+        public Hand()
+        {
+            Cards = new List<Card>();
+        }
+        public List<Card> Cards { get;}
 
-![](images/chapter3/upgrade-db-4.jpg)
+        public void Draw(Card card)
+        {
+            Cards.Add(card);
+        }
+
+    }
+
+The Hand class will hold a players hand of cards. In the next exercises you will be scoring the Hand of cards from the Cards property in the Hand class.
 
 <div class="exercise-end"></div>
 
-With the database upgraded use the scaffolding wizard to create an interactive grid view.
+### Getting the high card
 
-### UI for MVC Scaffolding Wizard
-
-The scaffolding wizard will aid you in creating the view by providing point a click configuration screen. Use the scaffolding wizard to create an interactive Kendo UI Grid view of invoices for the Team Efficiency Dashboard. By enabling grid features like: sorting, paging and exporting users will be able to analyze and share data in a familiar way.
+In a game where all players hands are a equal in rank, the winner is decided by comparing the highest card in their hands. Add a HighCard method to the Hand that returns the highest CardValue in the hand. 
 
 <h4 class="exercise-start">
-    <b>Exercise</b>: Scaffold a grid view of invoices
+    <b>Exercise</b>: Score the high card
 </h4>
 
-Start the scaffolding wizard by **right-clicking Controllers > Add > New Scaffolded Item**
+Below is a test method you can use to validate your HighCard method.
 
-![](images/chapter3/scaffold-1.jpg)
+        [Fact]
+        public void CanGetHighCard()
+        {
+            var hand = new Hand();
+            hand.Draw(new Card(CardValue.Seven, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+            hand.Draw(new Card(CardValue.Five, CardSuit.Hearts));
+            hand.Draw(new Card(CardValue.King, CardSuit.Hearts));
+            hand.Draw(new Card(CardValue.Two, CardSuit.Hearts));
+            Assert.Equal(CardValue.King, hand.HighCard().Value);
+        }
 
-Choose the **Kendo UI Scaffolder** and click **Add** to continue
-
-![](images/chapter3/scaffold-2.jpg)
-
-Notice the Scaffolder is capable of creating Grid, Chart, and Scheduler views for both C# and JavaScript. For this guide you'll be using the UI for MVC Grid scaffolding option. Choose **UI for MVC Grid** and click **Add** to continue.
-
-![](images/chapter3/scaffold-3.jpg)
-
-From MVC Grid scaffolding dialog, the grid's model options, grid options and events are defined. The Model Options control the following settings:
-
-- *Controller Name* - The name of the controller created by the Scaffolder.
-- *View Name* - The name of the view created, which will display the scaffolded grid.
-- *Model Class* - The model the Scaffolder will use to build the view.
-- *Data Context Class* - The Entity Framework DbContext used to connect the view to the data.
-
-Define the grid's model options using the following values:
-
-- Controller Name: **InvoiceController**
-- View Name: **Index**
-- Model Class: **Invoice**
-- Data Context Class: **NorthwindDBContext**
-
-![](images/chapter3/scaffold-4.jpg)
-
-The Grid Options control what features are scaffolded & enabled on the grid including:
-
-- *DataSource* Type - Ajax, Server or WebApi.
-- *Editable* - Enable the editing, configure the edit mode (InLine, InCell or PopUp) and the operations to be included (Create, Update, Destroy).
-- *Filterable* - Enable the filtering of the grid and select the filter mode.
-- *Column Menu* - Enable the column menu.
-- *Navigatable* - Enable the keyboard navigation.
-- *Pageable* - Enable the paging of the grid.
-- *Reorderable* - Enable the column reordering.
-- *Scrollable* - Enable the scrolling of the grid table.
-- *Selectable* - Enable the selection and specify the selection mode and type.
-- *Sortable* - Enable the sorting and specify the sorting mode.
-- *Excel Export* - Enable the Excel export functionality.
-- *PDF Export* - Enable the PDF export functionality.
-
-Define the grid's options by setting the following values:
-
-- *unchecked* Scrollable
-- *checked* Sortable
-- *checked* Pageable
-- *checked* Excel Export
-- *checked* PDF Export
-
-![](images/chapter3/scaffold-5.jpg)
-
-Click **Add** to continue and create the scaffolded items.
-
-The Scaffolder will create the following files:
-
-- `Controllers/InvoiceController.cs` - This controller has the actions for the features selected in the scaffolding wizard.
-    - `Index` returns the view
-    - `Invoices_Read` - gets all invoices from the database and returns a JSON formatted *DataSourceRequest* object. The *DataSourceRequest* will contain the current grid request information - page, sort, group and filter.
-    - `Excel_Export_Save` - creates an XLS exported File result.
-    - `Pdf_Export_Save` - creates a PDF exported File result.
-- `Views/Invoice/Index.cshtml` - This view contains the markup and HTML helper responsible for rendering the grid control.
-
-**Run** the application and navigate to `/Invoice/index` to see the generated grid control. You should see the following output:
-
-![](images/chapter3/invoices-grid.jpg)
+When this test passes, move on to the next exercise.
 
 <div class="exercise-end"></div>
 
-Now that the UI for MVC Scaffolder has generated a starting point for working with the grid, you can modify the scaffolded code to meet your needs. In the next chapter we'll do just that.
+### Hand rankings
+
+In the previous exercise, you determined the high card. Now add a HandRank GetHandRank method that will return the Hand's HandRank.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Score the high card
+</h4>
+
+Add the HandRank enum to your project.
+
+    public enum HandRank
+    {
+        HighCard,
+        Pair,
+        TwoPair,
+        ThreeOfAKind,
+        Straight,
+        Flush,
+        FullHouse,
+        FourOfAKind,
+        StraightFlush,
+        RoyalFlush
+    }
+
+Use the following tests to create a GetHandRank method on the Hand object that will return the correct HandRank for the test. Only score the Ranks below, you'll be refactoring as the workshop progresses and scoring additional HandRanks as you learn about OOP and functional programming.
+
+        [Fact]
+        public void CanScoreHighCard()
+        {
+            var hand = new Hand();
+            hand.Draw(new Card(CardValue.Seven, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+            hand.Draw(new Card(CardValue.Five, CardSuit.Hearts));
+            hand.Draw(new Card(CardValue.King, CardSuit.Hearts));
+            hand.Draw(new Card(CardValue.Two, CardSuit.Hearts));
+            Assert.Equal(HandRank.HighCard, hand.GetHandRank());
+        }
+
+        [Fact]
+        public void CanScoreFlush()
+        {
+            var hand = new Hand();
+            hand.Draw(new Card(CardValue.Two, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Three, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Ace, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Five, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Six, CardSuit.Spades));
+            Assert.Equal(HandRank.Flush, hand.GetHandRank());
+        }
+        [Fact]
+        public void CanScoreRoyalFlush()
+        {
+            var hand = new Hand();
+            hand.Draw(new Card(CardValue.Ten, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Jack, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Queen, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.King, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Ace, CardSuit.Spades));
+            Assert.Equal(HandRank.RoyalFlush, hand.GetHandRank());
+        }
+
+When this test passes, move on to the next exercise.
+
+<div class="exercise-end"></div>
+
+### Hand rankings, answers
+
+Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be written using functional programming.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush
+</h4>
+
+Open open the folder /chapter3/answers/first-pass
+
+Open Hand.cs and review the comments
+
+<div class="exercise-end"></div>
+
+### Hand rankings, refactored
+
+<div class="exercise-end"></div>
+
+Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be refactored using functional programming.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush
+</h4>
+
+Open open the folder /chapter3/answers/refactored
+
+Open Hand.cs and review the comments
+
+Refactor your own code and make sure all of your tests pass.
+
+<div class="exercise-end"></div>
+
+### Hand Tests refactored
+
+Now it's time to refactor the tests using method chains. Pipelines are often found in functional programming languages. Pipelines allow functions to be chained or composed to produce easily maintainable and readable code.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Using Fluent Assertions
+</h4>
+
+Open /Tests/HandTests.cs
+
+Add a reference to FluentAssertions.
+
+    using FluentAssertions;
+
+Modify the Assert statement to use the FluentAssertions chain instead. To do this, start with the value that will be tested and continue with the method Should().Be(expectedValue)
+
+    Assert.Equal(CardValue.King, hand.HighCard().Value);
+
+becomes
+
+    hand.HighCard().Value.Should().Be(CardValue.King);
+
+Below is a example of the completed CanGetHighCard test
+
+    [Fact]
+    public void CanGetHighCard()
+    {
+        var hand = new Hand();
+        hand.Draw(new Card(CardValue.Seven, CardSuit.Spades));
+        hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+        hand.Draw(new Card(CardValue.Five, CardSuit.Hearts));
+        hand.Draw(new Card(CardValue.King, CardSuit.Hearts));
+        hand.Draw(new Card(CardValue.Two, CardSuit.Hearts));
+    
+        hand.HighCard().Value.Should().Be(CardValue.King);
+    }
+
+Refactor all tests to use Fluent Assertsions.
+       
+<div class="exercise-end"></div>
