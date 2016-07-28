@@ -68,27 +68,27 @@ When this tests pass, move on to the next exercise.
 
 ### Hand rankings, answers
 
-Now that the Pairs (of a kind) hand ranks have been scored review the answers to see how the code can be written using functional programming.
+Now that the Pairs (of a kind) hand ranks have been scored, review the answers to see how the code can be written using functional programming.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for Pairs (of a kind), FullHouse
 </h4>
 
-Open open the folder /chapter4/answers/first-pass
+Open open the folder files/04-Pairs/answers/first-pass
 
 Open Hand.cs and review the comments
 
 <div class="exercise-end"></div>
 
-### Hand rankings, answers
+### Hand rankings, refactored
 
-Now that the Pairs (of a kind) hand ranks have been scored review the answers to see how the code can be refactored using functional programming.
+Now that the Pairs (of a kind) hand ranks have been scored, review the answers to see how the code can be refactored using functional programming.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for Pairs (of a kind), FullHouse
 </h4>
 
-Open open the folder /chapter4/answers/refactored
+Open open the folder files/04-Pairs/answers/refactored
 
 Open Hand.cs and review the comments
 Open EvalExtensions.cs and review the comments

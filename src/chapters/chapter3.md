@@ -150,7 +150,7 @@ When this test passes, move on to the next exercise.
 
 ### Hand rankings, answers
 
-Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be written using functional programming.
+Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored, review the answers to see how the code can be written using functional programming.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush
@@ -166,7 +166,7 @@ Open Hand.cs and review the comments
 
 <div class="exercise-end"></div>
 
-Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be refactored using functional programming.
+Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored, review the answers to see how the code can be refactored using functional programming.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush

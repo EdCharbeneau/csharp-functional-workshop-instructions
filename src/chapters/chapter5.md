@@ -44,3 +44,31 @@ When this tests pass, move on to the next exercise.
 
 <div class="exercise-end"></div>
 
+### Hand rankings, answers
+
+Now that the Straight hand rank has been scored, review the answers to see how the code can be written using functional programming.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answer for Straight
+</h4>
+
+Open open the folder files/05-Sequences/answers/first-pass
+
+Open Hand.cs and review the comments
+
+<div class="exercise-end"></div>
+
+### Hand rankings, refactored
+
+Now that the Straight hand rank has been scored, review the answers to see how the code can be refactored using functional programming.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answers for Straight
+</h4>
+
+Open open the folder files/05-Sequences/answers/refactored
+
+Open Hand.cs and review the comments
+Open EvalExtensions.cs and review the comments
+
+<div class="exercise-end"></div>
