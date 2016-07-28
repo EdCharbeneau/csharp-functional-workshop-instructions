@@ -363,7 +363,7 @@ public void CanDescribeCard()
 <div class="exercise-end"></div>
 
 <h3 id="hand-rankings-answers">Hand rankings, answers</h3>
-<p>Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be written using functional programming.</p>
+<p>Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored, review the answers to see how the code can be written using functional programming.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush
 </h4>
@@ -375,7 +375,7 @@ public void CanDescribeCard()
 <h3 id="hand-rankings-refactored">Hand rankings, refactored</h3>
 <div class="exercise-end"></div>
 
-<p>Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored review the answers to see how the code can be refactored using functional programming.</p>
+<p>Now that the HighCard, Flush, and RoyalFlush hand ranks have been scored, review the answers to see how the code can be refactored using functional programming.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for HighCard, Flush, RoyalFlush
 </h4>
@@ -477,22 +477,22 @@ public void CanGetHighCard()
 <div class="exercise-end"></div>
 
 <h3 id="hand-rankings-answers">Hand rankings, answers</h3>
-<p>Now that the Pairs (of a kind) hand ranks have been scored review the answers to see how the code can be written using functional programming.</p>
+<p>Now that the Pairs (of a kind) hand ranks have been scored, review the answers to see how the code can be written using functional programming.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for Pairs (of a kind), FullHouse
 </h4>
 
-<p>Open open the folder /chapter4/answers/first-pass</p>
+<p>Open open the folder files/04-Pairs/answers/first-pass</p>
 <p>Open Hand.cs and review the comments</p>
 <div class="exercise-end"></div>
 
-<h3 id="hand-rankings-answers">Hand rankings, answers</h3>
-<p>Now that the Pairs (of a kind) hand ranks have been scored review the answers to see how the code can be refactored using functional programming.</p>
+<h3 id="hand-rankings-refactored">Hand rankings, refactored</h3>
+<p>Now that the Pairs (of a kind) hand ranks have been scored, review the answers to see how the code can be refactored using functional programming.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Answers for Pairs (of a kind), FullHouse
 </h4>
 
-<p>Open open the folder /chapter4/answers/refactored</p>
+<p>Open open the folder files/04-Pairs/answers/refactored</p>
 <p>Open Hand.cs and review the comments
 Open EvalExtensions.cs and review the comments</p>
 <div class="exercise-end"></div>
@@ -537,16 +537,122 @@ Open EvalExtensions.cs and review the comments</p>
 </code></pre><p>When this tests pass, move on to the next exercise.</p>
 <div class="exercise-end"></div>
 
+<h3 id="hand-rankings-answers">Hand rankings, answers</h3>
+<p>Now that the Straight hand rank has been scored, review the answers to see how the code can be written using functional programming.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answer for Straight
+</h4>
 
+<p>Open open the folder files/05-Sequences/answers/first-pass</p>
+<p>Open Hand.cs and review the comments</p>
+<div class="exercise-end"></div>
+
+<h3 id="hand-rankings-refactored">Hand rankings, refactored</h3>
+<p>Now that the Straight hand rank has been scored, review the answers to see how the code can be refactored using functional programming.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Answers for Straight
+</h4>
+
+<p>Open open the folder files/05-Sequences/answers/refactored</p>
+<p>Open Hand.cs and review the comments
+Open EvalExtensions.cs and review the comments</p>
+<div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="functional-refactor">Functional Refactor</h2>
+<p>In the previous chapter you solved more hand ranks using LINQ and refactored with the yeild keyword to create a custom LINQ-like extension method.</p>
+<p>In this chapter you&#39;ll refactor to use a more functional approach to scoring a hand.</p>
+<p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Refactor GetHandRank
+</h4>
+
+<p>Create a new public class named Ranker</p>
+<p>The Ranker an immutable class that will hold a delegate responsible for evaluating cards and a corresponding hand rank.</p>
+<pre><code>public class Ranker
+{
+    public Ranker(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank strength)
+    {
+        Eval = eval;
+        Strength = strength;
+    }
+
+    public Func&lt;IEnumerable&lt;Card&gt;, bool&gt; Eval { get; }
+
+    public HandRank Strength { get; }
+
+}
+</code></pre><p>Open Hand.cs and create a new private method named Rankings that generates a collecton of Ranker.</p>
+<p>Use the following code as a starting point, fill in the remaining Ranker items
+    private List<Ranker> Rankings() =&gt; new List<Ranker>
+    {
+        new Ranker(cards =&gt; HasRoyalFlush(), HandRank.RoyalFlush),
+        // more ranks here
+    };</p>
+<p>Find the GetHandRank method and remove the expression after the =&gt;</p>
+<p>The result should be:</p>
+<pre><code>public HandRank GetHandRank() =&gt;
+</code></pre><p>After the =&gt; write a new expression that uses the List<Ranker> from Rankings() that evaluates the hand rank.</p>
+<p>Hint: think LINQ</p>
+<div class="exercise-end"></div>
+
+<h3 id="hand-rankings-refactored">Hand rankings, refactored</h3>
+<p>Review the answers to see how the code can be refactored using functional programming.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: GetHandRank Refactored
+</h4>
+
+<p>Open open the folder files/06-Functional-refactor/answers</p>
+<p>Open Hand.cs and review the comments</p>
+<div class="exercise-end"></div>
+
+<h3 id="flexibility">Flexibility</h3>
+<p>The newest version of GetHandRank can be more flexible than the previous versions. Because it is a collection, it can easily be added to and operated on using LINQ.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Adding new hand ranks
+</h4>
+
+<p>Adding new hand ranks is easy. Simply add a new Ranker to the Rankings collection and the GetHandRank method will do the rest.</p>
+<p>Make the GetHandRank method even more robust by allowing Ranks to be added in any order.</p>
+<pre><code>Find the GetHandRank method and order the Rankings by descending order by their Strength
+
+.OrderByDescending(r =&gt; r.Strength)
+</code></pre><p>Next, solve the following unit test</p>
+<pre><code>    [Fact]
+    public void CanScoreTwoPair()
+    {
+        var hand = new Hand();
+        hand.Draw(new Card(CardValue.Ace, CardSuit.Clubs));
+        hand.Draw(new Card(CardValue.Ten, CardSuit.Spades));
+        hand.Draw(new Card(CardValue.Nine, CardSuit.Spades));
+        hand.Draw(new Card(CardValue.Ten, CardSuit.Hearts));
+        hand.Draw(new Card(CardValue.Ace, CardSuit.Spades));
+
+        hand.GetHandRank().Should().Be(HandRank.TwoPair);
+
+    }
+</code></pre><div class="exercise-end"></div>
 
 			</div>
 						<hr>
 			<div class="chapter">
-				<h2 id="next-steps">Next steps</h2>
+				<h2 id="takeaways">Takeaways</h2>
+<ol>
+<li>Are you already using aspects of functional programming in your daily activities?</li>
+<li>Will you use more functional programming in your code?</li>
+<li>Is OOP obsolete? Or is there a balance that can be found between imperative and functional programing?</li>
+<li>Is functional code like LINQ easier, or harder to read, maintain, and manage?</li>
+</ol>
+<h3 id="next-steps">Next Steps</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Continue on your own
+</h4>
+
+<p>Continue building the project in your own direction. Use what you have learned to add multiple hands and players to a game and score a poker game.</p>
+<p>Add support for other poker games types, with new rules or more cards. See how loosely coupled you can make the rules/ranks from the cards and hands.</p>
+<div class="exercise-end"></div>
+
 
 			</div>
 		</div>
