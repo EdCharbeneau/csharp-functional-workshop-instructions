@@ -36,14 +36,14 @@
 <ul>
 <li>Immutable Types</li>
 <li>Basic LINQ concepts</li>
-<li>Advanced LINQ concepts (Yeild)</li>
+<li>Advanced LINQ concepts (yield)</li>
 <li>Func Delegates</li>
 <li>Expression Bodied Members</li>
 <li>Extension methods and pipe-lining</li>
 <li>Thread Safe Collections</li>
 </ul>
 <h3 id="materials">Materials</h3>
-<p>In additon to this guide, a full presentation file and completed code can be found under the following folders in the repository.</p>
+<p>In addition to this guide, a full presentation file and completed code can be found under the following folders in the repository.</p>
 <ul>
 <li>Main repository: <a href="https://github.com/EdCharbeneau/csharp-functional-workshop-instructions">https://github.com/EdCharbeneau/csharp-functional-workshop-instructions</a></li>
 <li>Presentations: <a href="https://github.com/EdCharbeneau/csharp-functional-workshop-instructions/tree/gh-pages/files/00-docs">\files\00-docs</a></li>
@@ -178,7 +178,7 @@ Assert.NotNull(card);
 
 }
 </code></pre><p>Change the assertion so that it checks for a predetermined Suit and Value.</p>
-<pre><code>var card = new Card(CardSuit.Clubs, CardValue.Ace);
+<pre><code>var card = new Card(CardValue.Ace, CardSuit.Clubs);
 
 Assert.Equal(CardSuit.Clubs, card.Suit);
 Assert.Equal(CardValue.Ace, card.Value);
@@ -258,7 +258,7 @@ public void CanDescribeCard()
 <p>In the previous chapter you created a simple object and used some functional aspects of C#.</p>
 <p>In this chapter you&#39;ll start with imperative and OOP style programming. Throughout the examples you&#39;ll be asked to refactor using functional programming. This will help identify where to find balance between the two styles. As the this guide progresses, instructions will become less detailed so that you can explore your on your own.</p>
 <p>Now that you&#39;re comfortable with running unit tests, you will not be instructed to run tests after this point, instead feel free to run them as needed. <strong>For example, after every code change.</strong></p>
-<h3 id="crate-a-hand">Crate a Hand</h3>
+<h3 id="create-a-hand">Create a Hand</h3>
 <p>The poker hand will be used throughout the workshop. The Hand will represent a player&#39;s hand of cards. For this workshop a five card hand will be scored using imperative and functional programming.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Create the HandTests
