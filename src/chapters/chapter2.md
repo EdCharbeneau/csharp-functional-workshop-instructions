@@ -127,7 +127,7 @@ To insure that a value is intentionally set, add a constructor to the Card that 
 
 Change the assertion so that it checks for a predetermined Suit and Value.
 
-	var card = new Card(CardSuit.Clubs, CardValue.Ace);
+	var card = new Card(CardValue.Ace, CardSuit.Clubs);
  
 	Assert.Equal(CardSuit.Clubs, card.Suit);
     Assert.Equal(CardValue.Ace, card.Value);

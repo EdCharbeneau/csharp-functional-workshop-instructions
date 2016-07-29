@@ -12,7 +12,7 @@ Key topics and take aways:
 
 - Immutable Types
 - Basic LINQ concepts
-- Advanced LINQ concepts (Yeild)
+- Advanced LINQ concepts (yield)
 - Func Delegates
 - Expression Bodied Members
 - Extension methods and pipe-lining
@@ -20,7 +20,7 @@ Key topics and take aways:
 
 ### Materials
 
-In additon to this guide, a full presentation file and completed code can be found under the following folders in the repository.
+In addition to this guide, a full presentation file and completed code can be found under the following folders in the repository.
 
 - Main repository: https://github.com/EdCharbeneau/csharp-functional-workshop-instructions
 - Presentations: [\files\00-docs](https://github.com/EdCharbeneau/csharp-functional-workshop-instructions/tree/gh-pages/files/00-docs)

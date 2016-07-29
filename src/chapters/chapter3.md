@@ -6,7 +6,7 @@ In this chapter you'll start with imperative and OOP style programming. Througho
 
 Now that you're comfortable with running unit tests, you will not be instructed to run tests after this point, instead feel free to run them as needed. **For example, after every code change.**
 
-### Crate a Hand
+### Create a Hand
 
 The poker hand will be used throughout the workshop. The Hand will represent a player's hand of cards. For this workshop a five card hand will be scored using imperative and functional programming.
 
