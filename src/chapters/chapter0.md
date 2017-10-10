@@ -2,13 +2,17 @@
 
 Welcome to All In With Functional C#.
 
-You'll need Visual Studio 2015 (C# 6.0 or higher), and basic knowledge of the C# language.
+### Prerequisites
+
+Visual Studio 2015 and C# 6.0 will do, however for the best experience use Visual Studio 2017 and C# 7.x
+
+A basic knowledge of the C# language is recommended.
 
 ### What You're Building
 
-In this workshop you will learn about functional C# by building a poker scoring game using C# 6+ features. You'll learn what features in C# 6 support functional programming. The pros/cons of functional vs. imperative programming will be explored to understand the strengths of each style.
+In this workshop you will learn about functional C# by building a poker scoring game using C# 7.x features. You'll learn what features in C# 7.x support functional programming. The pros/cons of functional vs. imperative programming will be explored to understand the strengths of each style.
 
-Key topics and take aways:
+Key topics and takeaways:
 
 - Immutable Types
 - Basic LINQ concepts
@@ -17,6 +21,7 @@ Key topics and take aways:
 - Expression Bodied Members
 - Extension methods and pipe-lining
 - Thread Safe Collections
+- **new** System.ValueTuple
 
 ### Materials
 

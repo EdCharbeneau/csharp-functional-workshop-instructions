@@ -1,6 +1,6 @@
 ## Functional Refactor
 
-In the previous chapter you solved more hand ranks using LINQ and refactored with the yeild keyword to create a custom LINQ-like extension method.
+In the previous chapter you solved more hand ranks using LINQ and refactored with the yield keyword to create a custom LINQ-like extension method.
 
 In this chapter you'll refactor to use a more functional approach to scoring a hand.
 
@@ -28,7 +28,7 @@ The Ranker an immutable class that will hold a delegate responsible for evaluati
 
     }
 
-Open Hand.cs and create a new private method named Rankings that generates a collecton of Ranker.
+Open Hand.cs and create a new private method named Rankings that generates a collection of Ranker.
 
 Use the following code as a starting point, fill in the remaining Ranker items
     private List<Ranker> Rankings() => new List<Ranker>

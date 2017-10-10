@@ -48,7 +48,11 @@ Make the card class public.
 
 This should be enough to satisfy the first unit test. Build the project (ctrl+shift+b), open Test  Explorer and click **Run All**. You should receive a green check-mark next to the CanCreateCard test.
 
+![](images/chapter2/test-explorer-pass.jpg)
+
 If the Test Explorer window is not visible, type Test Explorer in the quick launch box.
+
+![](images/chapter2/test-explorer.jpg)
 
 <div class="exercise-end"></div>
 
@@ -120,8 +124,8 @@ To insure that a value is intentionally set, add a constructor to the Card that 
             Suit = suit;
         }
 
-        public CardValue Value { get; }
-        public CardSuit Suit { get; }
+        public CardValue Value { get; set; }
+        public CardSuit Suit { get; set; }
 
     }
 
@@ -135,6 +139,10 @@ Change the assertion so that it checks for a predetermined Suit and Value.
 Now when a Card is created it must have its properties set to a value. In the next exercise you'll refactor the Card so that it is immutable, meaning that its properties cannot be changed once the object is created.
 
 Re-run the test to verify that the test passes.
+
+If you're using **Visual Studio 2017 Enterprise edition**. You can save time by enabling Live Unit Testing.
+
+![](images/chapter2/enable-live-ut.jpg)
 
 <div class="exercise-end"></div>
 
@@ -159,7 +167,7 @@ Create a new test CanDescribeCard, this test should test a Card with the values 
 
 Run the test to verify that it fails.
 
-Next, update the Card object to make the test pass. Overried the ToString method on the Card class and utilize the string interpolation syntax to write out the Card's description.
+Next, update the Card object to make the test pass. Override the ToString method on the Card class and utilize the string interpolation syntax to write out the Card's description.
 
         public override string ToString()
         {
@@ -199,7 +207,7 @@ In functional programming immutable objects are used to reduce complexity and av
 
 In C# 6 or higher, backing fields and explicit readonly property declarations are not needed. By simply removing the `set` operator from a property will make it a read-only property.
 
-In the Card class, remove the `get` decliartions from each property.
+In the Card class, remove the `get` declarations from each property.
 
     public class Card
     {

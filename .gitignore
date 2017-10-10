@@ -1,1 +1,4 @@
 node_modules/
+scripts/built.js
+css/style.css
+index.html

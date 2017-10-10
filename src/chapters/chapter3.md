@@ -217,6 +217,6 @@ Below is a example of the completed CanGetHighCard test
         hand.HighCard().Value.Should().Be(CardValue.King);
     }
 
-Refactor all tests to use Fluent Assertsions.
+Refactor all tests to use Fluent Assertions.
        
 <div class="exercise-end"></div>

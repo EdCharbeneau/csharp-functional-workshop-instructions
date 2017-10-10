@@ -2,7 +2,7 @@
 
 In the previous chapter you solved more hand ranks using higher order functions and refactored with an extension method to create a method chain.
 
-In this chapter you'll continue with imperative and OOP style programming. Throughout the examples you'll be asked to refactor using functional programming. Later in this chapter, you'll learn about working with the Yeild operator in C#.
+In this chapter you'll continue with imperative and OOP style programming. Throughout the examples you'll be asked to refactor using functional programming. Later in this chapter, you'll learn about working with the Yield operator in C#.
 
 Feel free to run tests as needed. **For example, after every code change.**
 
