@@ -607,32 +607,52 @@ Open EvalExtensions.cs and review the comments</p>
 <p>In this chapter you&#39;ll refactor to use a more functional approach to scoring a hand.</p>
 <p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
 <h4 class="exercise-start">
-    <b>Exercise</b>: Refactor GetHandRank
+    <b>Exercise</b>: Refactor GetHandRank with Tuples
 </h4>
 
+<p>If you&#39;re using VS2015 C# 6.0 skip this step.</p>
+<p>Create a new public class named Ranker</p>
+<p>Open Hand.cs and create a new private method named Rankings that generates a collection of Tuples. Use the following code as a starting point, fill in the remaining items</p>
+<pre><code>private List&lt;(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank rank)&gt; Rankings() =&gt;
+        new List&lt;(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank rank)&gt;
+        {
+            // more ranks here
+        };
+</code></pre><p>Find the GetHandRank method and remove the expression after the =&gt;</p>
+<p>The result should be:</p>
+<pre><code>public HandRank GetHandRank() =&gt;
+</code></pre><p>After the =&gt; write a new expression that uses the Rankings that evaluates the hand rank.</p>
+<p>Hint: think LINQ</p>
+<div class="exercise-end"></div>
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Refactor GetHandRank VS2015 C# 6.0 (aka No Tuples)
+</h4>
+
+<p>If you&#39;re using VS2017 C# 7.x skip this step.</p>
 <p>Create a new public class named Ranker</p>
 <p>The Ranker an immutable class that will hold a delegate responsible for evaluating cards and a corresponding hand rank.</p>
 <pre><code>public class Ranker
 {
-    public Ranker(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank strength)
+    public Ranker(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank rank)
     {
         Eval = eval;
-        Strength = strength;
+        Rank = rank;
     }
 
     public Func&lt;IEnumerable&lt;Card&gt;, bool&gt; Eval { get; }
 
-    public HandRank Strength { get; }
+    public HandRank Rank { get; }
 
 }
 </code></pre><p>Open Hand.cs and create a new private method named Rankings that generates a collection of Ranker.</p>
-<p>Use the following code as a starting point, fill in the remaining Ranker items
-    private List<Ranker> Rankings() =&gt; new List<Ranker>
-    {
-        new Ranker(cards =&gt; HasRoyalFlush(), HandRank.RoyalFlush),
-        // more ranks here
-    };</p>
-<p>Find the GetHandRank method and remove the expression after the =&gt;</p>
+<p>Use the following code as a starting point, fill in the remaining Ranker items</p>
+<pre><code>private List&lt;Ranker&gt; Rankings() =&gt; new List&lt;Ranker&gt;
+{
+    new Ranker(cards =&gt; HasRoyalFlush(), HandRank.RoyalFlush),
+    // more ranks here
+};
+</code></pre><p>Find the GetHandRank method and remove the expression after the =&gt;</p>
 <p>The result should be:</p>
 <pre><code>public HandRank GetHandRank() =&gt;
 </code></pre><p>After the =&gt; write a new expression that uses the List<Ranker> from Rankings() that evaluates the hand rank.</p>
@@ -657,9 +677,12 @@ Open EvalExtensions.cs and review the comments</p>
 
 <p>Adding new hand ranks is easy. Simply add a new Ranker to the Rankings collection and the GetHandRank method will do the rest.</p>
 <p>Make the GetHandRank method even more robust by allowing Ranks to be added in any order.</p>
-<pre><code>Find the GetHandRank method and order the Rankings by descending order by their Strength
+<p>Find the GetHandRank method and order the Rankings by descending order by their Strength</p>
+<pre><code>// With Tuples
+.OrderByDescending(rule =&gt; rule.rank)
 
-.OrderByDescending(r =&gt; r.Strength)
+// Without Tuples
+.OrderByDescending(rule =&gt; rule.Rank)
 </code></pre><p>Next, solve the following unit test</p>
 <pre><code>    [Fact]
     public void CanScoreTwoPair()
