@@ -11,6 +11,9 @@
     "url": "https://github.com/tjvantoll/quick-start-template/issues"
   },
   "homepage": "https://github.com/tjvantoll/quick-start-template",
+  "scripts": {
+    "start": "gulp"
+  },
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.1",
