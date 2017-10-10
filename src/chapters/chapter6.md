@@ -6,11 +6,11 @@ In this chapter you'll refactor to use a more functional approach to scoring a h
 
 Feel free to run tests as needed. **For example, after every code change.**
 
+If you're using VS2015 C# 6.0 skip this exercise.
+
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank with Tuples
 </h4>
-
-If you're using VS2015 C# 6.0 skip this step.
 
 Create a new public class named Ranker
 
@@ -34,11 +34,11 @@ Hint: think LINQ
 
 <div class="exercise-end"></div>
 
+If you're using VS2017 C# 7.x skip this exercise.
+
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank VS2015 C# 6.0 (aka No Tuples)
 </h4>
-
-If you're using VS2017 C# 7.x skip this step.
 
 Create a new public class named Ranker
 

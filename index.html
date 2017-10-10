@@ -606,11 +606,11 @@ Open EvalExtensions.cs and review the comments</p>
 <p>In the previous chapter you solved more hand ranks using LINQ and refactored with the yield keyword to create a custom LINQ-like extension method.</p>
 <p>In this chapter you&#39;ll refactor to use a more functional approach to scoring a hand.</p>
 <p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
+<p>If you&#39;re using VS2015 C# 6.0 skip this exercise.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank with Tuples
 </h4>
 
-<p>If you&#39;re using VS2015 C# 6.0 skip this step.</p>
 <p>Create a new public class named Ranker</p>
 <p>Open Hand.cs and create a new private method named Rankings that generates a collection of Tuples. Use the following code as a starting point, fill in the remaining items</p>
 <pre><code>private List&lt;(Func&lt;IEnumerable&lt;Card&gt;, bool&gt; eval, HandRank rank)&gt; Rankings() =&gt;
@@ -625,11 +625,11 @@ Open EvalExtensions.cs and review the comments</p>
 <p>Hint: think LINQ</p>
 <div class="exercise-end"></div>
 
+<p>If you&#39;re using VS2017 C# 7.x skip this exercise.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank VS2015 C# 6.0 (aka No Tuples)
 </h4>
 
-<p>If you&#39;re using VS2017 C# 7.x skip this step.</p>
 <p>Create a new public class named Ranker</p>
 <p>The Ranker an immutable class that will hold a delegate responsible for evaluating cards and a corresponding hand rank.</p>
 <pre><code>public class Ranker
