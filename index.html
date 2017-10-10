@@ -29,10 +29,12 @@
 			<div class="chapter">
 				<h2 id="introduction">Introduction</h2>
 <p>Welcome to All In With Functional C#.</p>
-<p>You&#39;ll need Visual Studio 2015 (C# 6.0 or higher), and basic knowledge of the C# language.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Visual Studio 2015 and C# 6.0 will do, however for the best experience use Visual Studio 2017 and C# 7.x</p>
+<p>A basic knowledge of the C# language is recommended.</p>
 <h3 id="what-you-re-building">What You&#39;re Building</h3>
-<p>In this workshop you will learn about functional C# by building a poker scoring game using C# 6+ features. You&#39;ll learn what features in C# 6 support functional programming. The pros/cons of functional vs. imperative programming will be explored to understand the strengths of each style.</p>
-<p>Key topics and take aways:</p>
+<p>In this workshop you will learn about functional C# by building a poker scoring game using C# 7.x features. You&#39;ll learn what features in C# 7.x support functional programming. The pros/cons of functional vs. imperative programming will be explored to understand the strengths of each style.</p>
+<p>Key topics and takeaways:</p>
 <ul>
 <li>Immutable Types</li>
 <li>Basic LINQ concepts</li>
@@ -41,6 +43,7 @@
 <li>Expression Bodied Members</li>
 <li>Extension methods and pipe-lining</li>
 <li>Thread Safe Collections</li>
+<li><strong>new</strong> System.ValueTuple</li>
 </ul>
 <h3 id="materials">Materials</h3>
 <p>In addition to this guide, a full presentation file and completed code can be found under the following folders in the repository.</p>
@@ -55,19 +58,36 @@
 			<div class="chapter">
 				<h2 id="getting-up-and-running">Getting Up and Running</h2>
 <p>In this chapter you&#39;re setting up the basics for unit testing.</p>
-<h3 id="create-a-new-class-library-project">Create a New Class Library Project</h3>
-<p>Start by creating a new ASP.NET MVC project. You&#39;ll use this project throughout the rest of this tutorial to build your application.</p>
+<h3 id="create-an-xunit-test-project-vs2017">Create an xUnit Test Project - VS2017</h3>
+<p>Start by creating a new Class Library project. You&#39;ll use this project throughout the rest of this tutorial to build your application.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a new project<br></h4>
+
+<p>Click <strong>File &gt; New Project &gt; xUnit Test Project (.NET Core)</strong></p>
+<p>Name the project <strong>CsharpPoker</strong></p>
+<p><img src="images/chapter1/new-xunit-project.jpg" alt=""></p>
+<p>Delete UnitTest1.cs</p>
+<p>Using the package manager console, run the following commands</p>
+<pre><code>PM&gt; Install-Package FluentAssertions
+</code></pre><p>Alternatively, you can use the package manager GUI</p>
+<p>The next steps are for Visual Studio 2015 users. You may advance to step 2.0.</p>
+<div class="exercise-end"></div>
+
+<h3 id="create-a-new-class-library-project-vs2015">Create a New Class Library Project - VS2015</h3>
+<p>Start by creating a new Class Library project. You&#39;ll use this project throughout the rest of this tutorial to build your application.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Create a new project<br></h4>
 
 <p>Click <strong>File &gt; New Project &gt; Class Library</strong></p>
+<p>Name the project <strong>CsharpPoker</strong></p>
 <p>Delete Class1.cs</p>
 <div class="exercise-end"></div>
 
 <h3 id="install-the-xunit-unit-testing-framework">Install the xUnit, unit testing framework</h3>
 <p>With the new project created, it&#39;s time to start building unit tests. For this guide, we are using xUnit. xUnit is a commonly used unit testing framework in .NET.</p>
 <h4 class="exercise-start">
-    <b>Exercise</b>: Install xUnit<br></h4>
+    <b>Exercise</b>: Install xUnit
+</h4>
 
 <p>Open the package manager console, in quick launch, type: package manager console</p>
 <p>Using the package manager console, run the following commands</p>
@@ -112,7 +132,9 @@ Assert.NotNull(card);
 <p>Make the card class public.</p>
 <pre><code>public class Card {}
 </code></pre><p>This should be enough to satisfy the first unit test. Build the project (ctrl+shift+b), open Test  Explorer and click <strong>Run All</strong>. You should receive a green check-mark next to the CanCreateCard test.</p>
+<p><img src="images/chapter2/test-explorer-pass.jpg" alt=""></p>
 <p>If the Test Explorer window is not visible, type Test Explorer in the quick launch box.</p>
+<p><img src="images/chapter2/test-explorer.jpg" alt=""></p>
 <div class="exercise-end"></div>
 
 <h3 id="complete-the-card-object">Complete the Card object</h3>
@@ -173,8 +195,8 @@ Assert.NotNull(card);
         Suit = suit;
     }
 
-    public CardValue Value { get; }
-    public CardSuit Suit { get; }
+    public CardValue Value { get; set; }
+    public CardSuit Suit { get; set; }
 
 }
 </code></pre><p>Change the assertion so that it checks for a predetermined Suit and Value.</p>
@@ -184,6 +206,8 @@ Assert.Equal(CardSuit.Clubs, card.Suit);
 Assert.Equal(CardValue.Ace, card.Value);
 </code></pre><p>Now when a Card is created it must have its properties set to a value. In the next exercise you&#39;ll refactor the Card so that it is immutable, meaning that its properties cannot be changed once the object is created.</p>
 <p>Re-run the test to verify that the test passes.</p>
+<p>If you&#39;re using <strong>Visual Studio 2017 Enterprise edition</strong>. You can save time by enabling Live Unit Testing.</p>
+<p><img src="images/chapter2/enable-live-ut.jpg" alt=""></p>
 <div class="exercise-end"></div>
 
 <h3 id="describing-a-card">Describing a Card</h3>
@@ -202,7 +226,7 @@ public void CanDescribeCard()
 
 }
 </code></pre><p>Run the test to verify that it fails.</p>
-<p>Next, update the Card object to make the test pass. Overried the ToString method on the Card class and utilize the string interpolation syntax to write out the Card&#39;s description.</p>
+<p>Next, update the Card object to make the test pass. Override the ToString method on the Card class and utilize the string interpolation syntax to write out the Card&#39;s description.</p>
 <pre><code>    public override string ToString()
     {
         return $&quot;{Value} of {Suit}&quot;;
@@ -230,7 +254,7 @@ public void CanDescribeCard()
 </h4>
 
 <p>In C# 6 or higher, backing fields and explicit readonly property declarations are not needed. By simply removing the <code>set</code> operator from a property will make it a read-only property.</p>
-<p>In the Card class, remove the <code>get</code> decliartions from each property.</p>
+<p>In the Card class, remove the <code>get</code> declarations from each property.</p>
 <pre><code>public class Card
 {
     public Card(CardValue value, CardSuit suit)
@@ -429,7 +453,7 @@ public void CanGetHighCard()
 
     hand.HighCard().Value.Should().Be(CardValue.King);
 }
-</code></pre><p>Refactor all tests to use Fluent Assertsions.</p>
+</code></pre><p>Refactor all tests to use Fluent Assertions.</p>
 <div class="exercise-end"></div>
 			</div>
 						<hr>
@@ -519,7 +543,7 @@ Open EvalExtensions.cs and review the comments</p>
 			<div class="chapter">
 				<h2 id="finding-sequences">Finding Sequences</h2>
 <p>In the previous chapter you solved more hand ranks using higher order functions and refactored with an extension method to create a method chain.</p>
-<p>In this chapter you&#39;ll continue with imperative and OOP style programming. Throughout the examples you&#39;ll be asked to refactor using functional programming. Later in this chapter, you&#39;ll learn about working with the Yeild operator in C#.</p>
+<p>In this chapter you&#39;ll continue with imperative and OOP style programming. Throughout the examples you&#39;ll be asked to refactor using functional programming. Later in this chapter, you&#39;ll learn about working with the Yield operator in C#.</p>
 <p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
 <h3 id="scoring-a-straight">Scoring a Straight</h3>
 <p>Continue to update the poker hand used throughout the workshop.</p>
@@ -579,7 +603,7 @@ Open EvalExtensions.cs and review the comments</p>
 						<hr>
 			<div class="chapter">
 				<h2 id="functional-refactor">Functional Refactor</h2>
-<p>In the previous chapter you solved more hand ranks using LINQ and refactored with the yeild keyword to create a custom LINQ-like extension method.</p>
+<p>In the previous chapter you solved more hand ranks using LINQ and refactored with the yield keyword to create a custom LINQ-like extension method.</p>
 <p>In this chapter you&#39;ll refactor to use a more functional approach to scoring a hand.</p>
 <p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
 <h4 class="exercise-start">
@@ -601,7 +625,7 @@ Open EvalExtensions.cs and review the comments</p>
     public HandRank Strength { get; }
 
 }
-</code></pre><p>Open Hand.cs and create a new private method named Rankings that generates a collecton of Ranker.</p>
+</code></pre><p>Open Hand.cs and create a new private method named Rankings that generates a collection of Ranker.</p>
 <p>Use the following code as a starting point, fill in the remaining Ranker items
     private List<Ranker> Rankings() =&gt; new List<Ranker>
     {
