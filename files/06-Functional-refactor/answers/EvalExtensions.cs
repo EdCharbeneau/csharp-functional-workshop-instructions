@@ -6,7 +6,7 @@ using System.Linq;
 
 public static class EvalExtensions {
 
-    public static IEnumerable<KeyValuePair<CardValue, int>> ToPairs(this IEnumerable<Card> cards)
+    public static IEnumerable<KeyValuePair<CardValue, int>> ToKindAndQuantities(this IEnumerable<Card> cards)
     {
         var dict = new ConcurrentDictionary<CardValue, int>();
         foreach (var card in cards)
@@ -26,4 +26,7 @@ public static class EvalExtensions {
             yield return selector(element, source.ElementAt(index + 1));
         }
     }
+
+    public static HandRank Score(this Hand hand) => new FiveCardPokerScorer().GetScore(hand);
+
 }

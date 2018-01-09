@@ -33,7 +33,7 @@ namespace CsharpPoker
 
         private bool HasRoyalFlush() => HasFlush() && cards.All(c => c.Value > CardValue.Nine);
 
-        private bool HasOfAKind(int num) => cards.ToPairs().Any(c => c.Value == num);
+        private bool HasOfAKind(int num) => cards.ToKindAndQuantities().Any(c => c.Value == num);
 
         private bool HasPair() => HasOfAKind(2);
         private bool HasThreeOfAKind() => HasOfAKind(3);

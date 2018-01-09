@@ -6,7 +6,7 @@ using System.Linq;
 
 public static class EvalExtensions {
 
-    public static IEnumerable<KeyValuePair<CardValue, int>> ToPairs(this IEnumerable<Card> cards)
+    public static IEnumerable<KeyValuePair<CardValue, int>> ToKindAndQuantities(this IEnumerable<Card> cards)
     {
         var dict = new ConcurrentDictionary<CardValue, int>();
         foreach (var card in cards)
@@ -20,7 +20,7 @@ public static class EvalExtensions {
     /* 
 
     The SelectConsecutive method iterates over two consecutive items in a collection.
-    This is done using the yeild keyword
+    This is done using the yield keyword
     Each call to the iterator function proceeds to the next execution of the yield return statement
     This method is very similar to the source code found in LINQ methods
 

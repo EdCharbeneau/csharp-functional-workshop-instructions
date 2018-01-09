@@ -46,7 +46,7 @@ namespace CsharpPoker
          Higer order functions are simply a function that accepts or returns another function. 
          The AddOrUpdate method accepts a function which delegates how the item is updated.
         */ 
-        private IEnumerable<KeyValuePair<CardValue, int>> GetPairs(IEnumerable<Card> cards)
+        private IEnumerable<KeyValuePair<CardValue, int>> GetKindAndQuantities(IEnumerable<Card> cards)
         {
             var dict = new ConcurrentDictionary<CardValue, int>();
             foreach (var card in cards)

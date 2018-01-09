@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public static class EvalExtensions {
 
-    public static IEnumerable<KeyValuePair<CardValue, int>> ToPairs(this IEnumerable<Card> cards)
+    public static IEnumerable<KeyValuePair<CardValue, int>> ToKindAndQuantities(this IEnumerable<Card> cards)
     {
         var dict = new ConcurrentDictionary<CardValue, int>();
         foreach (var card in cards)

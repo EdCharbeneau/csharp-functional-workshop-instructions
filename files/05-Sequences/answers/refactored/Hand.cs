@@ -33,7 +33,7 @@ namespace CsharpPoker
 
         private bool HasRoyalFlush() => HasFlush() && cards.All(c => c.Value > CardValue.Nine);
 
-        private bool HasOfAKind(int num) => cards.ToPairs().Any(c => c.Value == num);
+        private bool HasOfAKind(int num) => cards.ToKindAndQuantities().Any(c => c.Value == num);
 
         private bool HasPair() => HasOfAKind(2);
         private bool HasThreeOfAKind() => HasOfAKind(3);
@@ -43,7 +43,7 @@ namespace CsharpPoker
 
         // The Zip and Skip LINQ methods are replaced by a custom extension method, SelectConsecutive
         // Select consecutive works like LINQ select, except it can evaluate two consecutive items in an collection
-        // This is done using a yeild keyword, the source code is in EvalExtensions.cs
+        // This is done using a yield keyword, the source code is in EvalExtensions.cs
         private bool HasStraight() => 
             cards.OrderBy(card => card.Value).SelectConsecutive((n, next) => n.Value + 1 == next.Value).All(value => value);
 
