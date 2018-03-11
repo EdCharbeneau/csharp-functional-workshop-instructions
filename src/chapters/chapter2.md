@@ -207,7 +207,7 @@ In functional programming immutable objects are used to reduce complexity and av
 
 In C# 6 or higher, backing fields and explicit readonly property declarations are not needed. By simply removing the `set` operator from a property will make it a read-only property.
 
-In the Card class, remove the `get` declarations from each property.
+In the Card class, remove the `set` declarations from each property.
 
     public class Card
     {
