@@ -1,14 +1,14 @@
 {
-  "name": "nativescript-quick-start",
+  "name": "going-all-in-with-functional-csharp",
   "version": "1.0.0",
-  "description": "A quick-start guide for NativeScript CLI apps",
+  "description": "Going all in with Functional C#",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tjvantoll/quick-start-template.git"
+    "url": "https://github.com/EdCharbeneau/csharp-functional-workshop-instructions.git"
   },
-  "author": "TJ VanToll",
+  "author": "Ed Charbeneau",
   "bugs": {
-    "url": "https://github.com/tjvantoll/quick-start-template/issues"
+    "url": "https://github.com/EdCharbeneau/csharp-functional-workshop-instructions/issues"
   },
   "homepage": "https://github.com/tjvantoll/quick-start-template",
   "scripts": {

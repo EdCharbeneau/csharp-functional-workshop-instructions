@@ -4,6 +4,12 @@ This is a template for building quick start guides.
 
 ## Setup
 
+Windows users install `npm install --global --production windows-build-tools` first.
+
+```
+$npm install --global --production windows-build-tools
+```
+
 Start by running `npm install` to install this template’s dependencies:
 
 ```
