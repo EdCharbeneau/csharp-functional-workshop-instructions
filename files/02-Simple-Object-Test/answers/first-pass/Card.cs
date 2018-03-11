@@ -8,8 +8,8 @@
             Suit = suit;
         }
 
-        public CardValue Value { get; }
-        public CardSuit Suit { get; }
+        public CardValue Value { get; set; }
+        public CardSuit Suit { get; set; }
 
         public override string ToString()
         {
