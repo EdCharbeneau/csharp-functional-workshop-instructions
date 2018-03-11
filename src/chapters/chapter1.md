@@ -28,7 +28,7 @@ The next steps are for Visual Studio 2015 users. You may advance to step 2.0.
 
 <div class="exercise-end"></div>
 
-### Create a New Class Library Project - VS2015
+### VS2015 ONLY - Create a New Class Library Project
 
 Start by creating a new Class Library project. You'll use this project throughout the rest of this tutorial to build your application.
 
@@ -44,7 +44,7 @@ Delete Class1.cs
 
 <div class="exercise-end"></div>
 
-### Install the xUnit, unit testing framework
+### VS2015 ONLY - Install the xUnit, unit testing framework
 
 With the new project created, it's time to start building unit tests. For this guide, we are using xUnit. xUnit is a commonly used unit testing framework in .NET.
 
