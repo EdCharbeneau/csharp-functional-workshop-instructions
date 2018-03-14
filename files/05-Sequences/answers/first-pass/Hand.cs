@@ -12,7 +12,7 @@ namespace CsharpPoker
     {
         private readonly List<Card> cards = new List<Card>();
 
-        public IEnumerable<Card> Cards { get { return cards; } }
+        public IEnumerable<Card> Cards => cards;
 
         public void Draw(Card card) => cards.Add(card);
 

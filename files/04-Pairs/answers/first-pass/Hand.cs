@@ -1,10 +1,6 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsharpPoker;
 
 namespace CsharpPoker
 {
@@ -12,7 +8,7 @@ namespace CsharpPoker
     {
         private readonly List<Card> cards = new List<Card>();
 
-        public IEnumerable<Card> Cards { get { return cards; } }
+        public IEnumerable<Card> Cards => cards;
 
         public void Draw(Card card) => cards.Add(card);
 
@@ -32,7 +28,7 @@ namespace CsharpPoker
         private bool HasRoyalFlush() => HasFlush() && cards.All(c => c.Value > CardValue.Nine);
 
         // The Any LINQ method validates that there are dictionary items with a specified pair count value.
-        private bool HasOfAKind(int num) => GetPairs(cards).Any(c => c.Value == num);
+        private bool HasOfAKind(int num) => GetKindAndQuantities(cards).Any(c => c.Value == num);
 
         private bool HasPair() => HasOfAKind(2);
         private bool HasThreeOfAKind() => HasOfAKind(3);

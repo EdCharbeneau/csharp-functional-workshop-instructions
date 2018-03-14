@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsharpPoker;
 
 namespace CsharpPoker
 {
@@ -23,10 +18,20 @@ namespace CsharpPoker
         }
 
         // A LINQ Aggregate is used to find the HighCard
-        // OrderBy is also valid, but could use more resources than Aggregate
+
         public Card HighCard()
         {
-            return cards.Aggregate((result, nextCard) => result.Value > nextCard.Value ? result : nextCard);
+            // Card highCard = Cards.First();
+            // foreach (var nextCard in Cards)
+            // {
+            //     if (nextCard.Value > highCard.Value)
+            //     {
+            //         highCard = nextCard;
+            //     }
+            // }
+            // return highCard;
+            return cards.Aggregate((highCard, nextCard) => nextCard.Value > highCard.Value ? nextCard : highCard);
+            // OrderBy is also valid, but could use more resources than Aggregate
             //return cards.OrderBy(c => c.Value).Last();
         }
         

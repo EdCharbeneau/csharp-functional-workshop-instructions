@@ -13,7 +13,7 @@ namespace CsharpPoker
         public void CanCreateHand()
         {
             var hand = new Hand();
-            Assert.Equal(hand.Cards.Any(), false);
+            Assert.False(hand.Cards.Any());
         }
 
         [Fact]

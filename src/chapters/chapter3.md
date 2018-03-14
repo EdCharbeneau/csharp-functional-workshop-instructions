@@ -22,7 +22,7 @@ Use the following tests to create a Hand class that has a Cards property and a D
         public void CanCreateHand()
         {
             var hand = new Hand();
-            Assert.Equal(hand.Cards.Any(), false);
+            Assert.False(hand.Cards.Any());
         }
 
         [Fact]

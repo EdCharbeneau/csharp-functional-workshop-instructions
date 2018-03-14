@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsharpPoker;
 
 namespace CsharpPoker
 {
@@ -19,8 +14,9 @@ namespace CsharpPoker
         public void Draw(Card card) => cards.Add(card);
 
         // simplified to an expression-bodied member
-        public Card HighCard() => cards.Aggregate((result, nextCard) => result.Value > nextCard.Value ? result : nextCard);
+        public Card HighCard() => cards.Aggregate((highCard, nextCard) => nextCard.Value > highCard.Value ? nextCard : highCard);
 
+        // Optional
         // The return early pattern can be replaced with tenary operators
         // then shortended to an expression-bodied member
         public HandRank GetHandRank() =>
