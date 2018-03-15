@@ -606,6 +606,37 @@ Open EvalExtensions.cs and review the comments</p>
 <p>In the previous chapter you solved more hand ranks using LINQ and refactored with the yield keyword to create a custom LINQ-like extension method.</p>
 <p>In this chapter you&#39;ll refactor to use a more functional approach to scoring a hand.</p>
 <p>Feel free to run tests as needed. <strong>For example, after every code change.</strong></p>
+<h3 id="data-and-behavior">Data and Behavior</h3>
+<p>Up until now we have combined our Hand object with the behavior of scoring. Ideally these concepts should not be mixed. Because there is no state to be concerned about, the scoring functions can be moved with relative ease.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Refactor with Pure Functions
+</h4>
+
+<p>Create a new public static class named FiveCardPokerScorer</p>
+<p>Open Hand.cs and move the scoring functionality to FiveCardPokerScorer.cs. Because the functionality will be external to the data, the funcitons will need to be modified to accept the data as a parameter. In addtion, this will bring the application closer in-line with functional programming because the new functions are considered &quot;<a href="https://en.wikipedia.org/wiki/Pure_function">pure functions</a>&quot;.</p>
+<p>Example:</p>
+<pre><code>public static class FiveCardPokerScorer
+{
+    public static Card HighCard(IEnumerable&lt;Card&gt; cards) =&gt; cards.Aggregate((highCard, nextCard) =&gt; nextCard.Value &gt; highCard.Value ? nextCard : highCard);
+
+    private static bool HasFlush(IEnumerable&lt;Card&gt; cards) =&gt; cards.All(c =&gt; cards.First().Suit == c.Suit);
+}
+</code></pre><p>Create a new test class in /Tests named FiveCardPokerScorerTests</p>
+<p>Move the corresponding tests from HandTests to FiveCardPokerScorerTests.</p>
+<pre><code>[Fact]
+public void CanGetHighCard()
+{
+    var hand = new Hand();
+    hand.Draw(new Card(CardValue.Seven, CardSuit.Spades));
+    hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+    hand.Draw(new Card(CardValue.Five, CardSuit.Hearts));
+    hand.Draw(new Card(CardValue.King, CardSuit.Hearts));
+    hand.Draw(new Card(CardValue.Two, CardSuit.Hearts));
+    FiveCardPokerScorer.HighCard(hand.Cards).Value.Should().Be(CardValue.King);
+}
+</code></pre><h3 id="functions-as-data-vs2017-c-7-1-">Functions as Data - VS2017 C# 7.1+</h3>
+<div class="exercise-end"></div>
+
 <p>If you&#39;re using VS2015 C# 6.0 skip this exercise.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank with Tuples
@@ -620,11 +651,12 @@ Open EvalExtensions.cs and review the comments</p>
         };
 </code></pre><p>Find the GetHandRank method and remove the expression after the =&gt;</p>
 <p>The result should be:</p>
-<pre><code>public HandRank GetHandRank() =&gt;
+<pre><code>public static HandRank GetHandRank() =&gt;
 </code></pre><p>After the =&gt; write a new expression that uses the Rankings that evaluates the hand rank.</p>
 <p>Hint: think LINQ</p>
 <div class="exercise-end"></div>
 
+<h3 id="functions-as-data-vs2015-c-6">Functions as Data VS2015 C# 6</h3>
 <p>If you&#39;re using VS2017 C# 7.x skip this exercise.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Refactor GetHandRank VS2015 C# 6.0 (aka No Tuples)
@@ -654,19 +686,9 @@ Open EvalExtensions.cs and review the comments</p>
 };
 </code></pre><p>Find the GetHandRank method and remove the expression after the =&gt;</p>
 <p>The result should be:</p>
-<pre><code>public HandRank GetHandRank() =&gt;
+<pre><code>public static HandRank GetHandRank() =&gt;
 </code></pre><p>After the =&gt; write a new expression that uses the List<Ranker> from Rankings() that evaluates the hand rank.</p>
 <p>Hint: think LINQ</p>
-<div class="exercise-end"></div>
-
-<h3 id="hand-rankings-refactored">Hand rankings, refactored</h3>
-<p>Review the answers to see how the code can be refactored using functional programming.</p>
-<h4 class="exercise-start">
-    <b>Exercise</b>: GetHandRank Refactored
-</h4>
-
-<p>Open open the folder files/06-Functional-refactor/answers</p>
-<p>Open Hand.cs and review the comments</p>
 <div class="exercise-end"></div>
 
 <h3 id="flexibility">Flexibility</h3>

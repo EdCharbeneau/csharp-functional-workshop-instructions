@@ -6,6 +6,50 @@ In this chapter you'll refactor to use a more functional approach to scoring a h
 
 Feel free to run tests as needed. **For example, after every code change.**
 
+### Data and Behavior 
+
+Up until now we have combined our Hand object with the behavior of scoring. Ideally these concepts should not be mixed. Because there is no state to be concerned about, the scoring functions can be moved with relative ease.
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Refactor with Pure Functions
+</h4>
+
+Create a new public static class named FiveCardPokerScorer
+
+Open Hand.cs and move the scoring functionality to FiveCardPokerScorer.cs. Because the functionality will be external to the data, the funcitons will need to be modified to accept the data as a parameter. In addtion, this will bring the application closer in-line with functional programming because the new functions are considered "[pure functions](https://en.wikipedia.org/wiki/Pure_function)".
+
+Example:
+```
+public static class FiveCardPokerScorer
+{
+    public static Card HighCard(IEnumerable<Card> cards) => cards.Aggregate((highCard, nextCard) => nextCard.Value > highCard.Value ? nextCard : highCard);
+
+    private static bool HasFlush(IEnumerable<Card> cards) => cards.All(c => cards.First().Suit == c.Suit);
+}
+```
+
+Create a new test class in /Tests named FiveCardPokerScorerTests
+
+Move the corresponding tests from HandTests to FiveCardPokerScorerTests.
+
+```
+[Fact]
+public void CanGetHighCard()
+{
+    var hand = new Hand();
+    hand.Draw(new Card(CardValue.Seven, CardSuit.Spades));
+    hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+    hand.Draw(new Card(CardValue.Five, CardSuit.Hearts));
+    hand.Draw(new Card(CardValue.King, CardSuit.Hearts));
+    hand.Draw(new Card(CardValue.Two, CardSuit.Hearts));
+    FiveCardPokerScorer.HighCard(hand.Cards).Value.Should().Be(CardValue.King);
+}
+```
+
+### Functions as Data - VS2017 C# 7.1+
+
+<div class="exercise-end"></div>
+
 If you're using VS2015 C# 6.0 skip this exercise.
 
 <h4 class="exercise-start">
@@ -26,13 +70,15 @@ Find the GetHandRank method and remove the expression after the =>
 
 The result should be:
 
-    public HandRank GetHandRank() =>
+    public static HandRank GetHandRank() =>
 
 After the => write a new expression that uses the Rankings that evaluates the hand rank.
 
 Hint: think LINQ
 
 <div class="exercise-end"></div>
+
+### Functions as Data VS2015 C# 6
 
 If you're using VS2017 C# 7.x skip this exercise.
 
@@ -72,25 +118,11 @@ Find the GetHandRank method and remove the expression after the =>
 
 The result should be:
 
-    public HandRank GetHandRank() =>
+    public static HandRank GetHandRank() =>
 
 After the => write a new expression that uses the List<Ranker> from Rankings() that evaluates the hand rank.
 
 Hint: think LINQ
-
-<div class="exercise-end"></div>
-
-### Hand rankings, refactored
-
-Review the answers to see how the code can be refactored using functional programming.
-
-<h4 class="exercise-start">
-    <b>Exercise</b>: GetHandRank Refactored
-</h4>
-
-Open open the folder files/06-Functional-refactor/answers
-
-Open Hand.cs and review the comments
 
 <div class="exercise-end"></div>
 
