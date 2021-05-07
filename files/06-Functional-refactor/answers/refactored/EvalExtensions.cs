@@ -27,6 +27,6 @@ public static class EvalExtensions {
         }
     }
 
-    public static HandRank Score(this Hand hand) => new FiveCardPokerScorer().GetScore(hand);
+    public static HandRank Score(this Hand hand) => FiveCardPokerScorer.GetHandRank(hand.Cards);
 
 }
