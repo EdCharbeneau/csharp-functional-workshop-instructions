@@ -13,7 +13,9 @@ namespace CsharpPoker
         private bool HasFlush() => cards.All(c => cards.First().Suit == c.Suit);
         public bool HasRoyalFlush() => HasFlush() && cards.All(c => c.Value > CardValue.Nine);
         private bool HasOfAKind(int num) => cards.ToKindAndQuantities().Any(c => c.Value == num);
+        private int CountOfAKind(int num) => cards.ToKindAndQuantities().Count(c => c.Value == num);
         private bool HasPair() => HasOfAKind(2);
+        private bool HasTwoPair() => CountOfAKind(2) == 2;
         private bool HasThreeOfAKind() => HasOfAKind(3);
         private bool HasFourOfAKind() => HasOfAKind(4);
         private bool HasFullHouse() => HasThreeOfAKind() && HasPair();
@@ -28,6 +30,7 @@ namespace CsharpPoker
             HasFullHouse() ? HandRank.FullHouse :
             HasFourOfAKind() ? HandRank.FourOfAKind :
             HasThreeOfAKind() ? HandRank.ThreeOfAKind :
+            HasTwoPair() ? HandRank.TwoPair :
             HasPair() ? HandRank.Pair :
             HandRank.HighCard;
     }
