@@ -1,4 +1,4 @@
-﻿using xunit;
+﻿using Xunit;
 
 namespace CsharpPoker
 {
