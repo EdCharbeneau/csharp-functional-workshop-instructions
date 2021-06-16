@@ -95,6 +95,18 @@ namespace CsharpPoker
         }
 
         [Fact]
+        public void CanScoreTwoPair()
+        {
+            var hand = new Hand();
+            hand.Draw(new Card(CardValue.Ten, CardSuit.Clubs));
+            hand.Draw(new Card(CardValue.Jack, CardSuit.Spades));
+            hand.Draw(new Card(CardValue.Jack, CardSuit.Diamonds));
+            hand.Draw(new Card(CardValue.Ten, CardSuit.Hearts));
+            hand.Draw(new Card(CardValue.Ace, CardSuit.Spades));
+            hand.GetHandRank().Should().Be(HandRank.TwoPair);
+        }
+
+        [Fact]
         public void CanScoreThreeOfAKind()
         {
             var hand = new Hand();

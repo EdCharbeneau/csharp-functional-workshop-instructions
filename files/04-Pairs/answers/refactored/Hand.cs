@@ -24,6 +24,7 @@ namespace CsharpPoker
             HasFullHouse() ? HandRank.FullHouse :
             HasFourOfAKind() ? HandRank.FourOfAKind :
             HasThreeOfAKind() ? HandRank.ThreeOfAKind :
+            HasTwoPair() ? HandRank.TwoPair :
             HasPair() ? HandRank.Pair :
             HandRank.HighCard;
 
@@ -34,7 +35,10 @@ namespace CsharpPoker
         // The ToPairs extension method maps a collection of cards, to a collection of pairs.
         private bool HasOfAKind(int num) => cards.ToKindAndQuantities().Any(c => c.Value == num);
 
+        private int CountOfAKind(int num) => cards.ToKindAndQuantities().Count(c => c.Value == num);
+
         private bool HasPair() => HasOfAKind(2);
+        private bool HasTwoPair() => CountOfAKind(2) == 2;
         private bool HasThreeOfAKind() => HasOfAKind(3);
         private bool HasFourOfAKind() => HasOfAKind(4);
 

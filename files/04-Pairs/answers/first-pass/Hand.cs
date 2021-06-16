@@ -20,6 +20,7 @@ namespace CsharpPoker
             HasFullHouse() ? HandRank.FullHouse :
             HasFourOfAKind() ? HandRank.FourOfAKind :
             HasThreeOfAKind() ? HandRank.ThreeOfAKind :
+            HasTwoPair() ? HandRank.TwoPair :
             HasPair() ? HandRank.Pair :
             HandRank.HighCard;
 
@@ -30,7 +31,10 @@ namespace CsharpPoker
         // The Any LINQ method validates that there are dictionary items with a specified pair count value.
         private bool HasOfAKind(int num) => GetKindAndQuantities(cards).Any(c => c.Value == num);
 
+        private int CountOfAKind(int num) => GetKindAndQuantities(cards).Count(c => c.Value == num);
+
         private bool HasPair() => HasOfAKind(2);
+        private bool HasTwoPair() => CountOfAKind(2) == 2;
         private bool HasThreeOfAKind() => HasOfAKind(3);
         private bool HasFourOfAKind() => HasOfAKind(4);
 
